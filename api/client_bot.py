@@ -16,19 +16,18 @@ class handler(BaseHTTPRequestHandler):
                 user_name = update["message"]["from"].get("first_name", "Друже")
                 token = os.environ.get('CLIENT_BOT_TOKEN')
                 
-                # Текст стал короче, так как суть теперь в кнопках
                 text = (
                     f"👋 Вітаю, {user_name}!\n\n"
                     f"Дякую за довіру! Я отримав вашу заявку на розробку лендингу. 🚀\n\n"
                     f"👇 Ось обіцяні матеріали. Тисніть на кнопки нижче:"
                 )
                 
-                # А ВОТ И САМИ КНОПКИ
+                # ВОТ ТВОИ КНОПКИ МЕНЮ (с рабочими ссылками-заглушками)
                 reply_markup = {
                     "inline_keyboard": [
-                        [{"text": "📊 Мій прайс-лист", "url": "https://docs.google.com/document/..."}], # Замени на свою ссылку
-                        [{"text": "📝 Бриф на розробку", "url": "https://forms.gle/..."}],            # Замени на свою ссылку
-                        [{"text": "👨‍💻 Написати мені особисто", "url": "https://t.me/ТВОЙ_ЛИЧНЫЙ_ЮЗЕРНЕЙМ"}] # Замени на свой юзернейм
+                        [{"text": "📊 Мій прайс-лист", "url": "https://google.com"}],
+                        [{"text": "📝 Бриф на розробку", "url": "https://google.com"}],
+                        [{"text": "👨‍💻 Написати мені особисто", "url": "https://t.me/telegram"}] 
                     ]
                 }
                 
