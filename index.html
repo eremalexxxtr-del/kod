@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="uk-UA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Кастомні лендинги — Розробка з нуля | Pagespeed 100/100</title>
+<meta name="description" content="Ручна розробка лендінгів з нуля. Чистий HTML, CSS, JavaScript. Pagespeed 100/100. Без конструкторів та шаблонів. Від 1500 грн.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Кастомні лендинги — Розробка з нуля">
+<meta property="og:description" content="Лендинги, що генерують прибуток. Ручна розробка, максимальна швидкість.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uk_UA">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════
+   CSS VARIABLES
+   ═══════════════════════════════════════════ */
+:root {
+  --color-bg: #FFFFFF;
+  --color-bg-alt: #F8F9FA;
+  --color-bg-alt-2: #F1F3F5;
+  --color-text: #161616;
+  --color-text-secondary: #6C757D;
+  --color-text-muted: #ADB5BD;
+  --color-accent: #2563EB;
+  --color-accent-hover: #1D4ED8;
+  --color-accent-light: rgba(37, 99, 235, 0.08);
+  --color-border: #E9ECEF;
+  --color-border-light: #F1F3F5;
+  --color-black: #0F0F0F;
+  --color-white: #FFFFFF;
+  --color-success: #16A34A;
+  --color-error: #DC2626;
+
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --section-padding-y: clamp(80px, 10vw, 160px);
+  --container-max: 1200px;
+  --container-padding: clamp(20px, 4vw, 40px);
+  --grid-gap: clamp(24px, 4vw, 48px);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-xl: 0 20px 60px rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.04);
+
+  --transition: 0.3s ease;
+  --transition-fast: 0.15s ease;
+
+  --header-height: 80px;
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-regular);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+}
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, textarea, select { font-family: inherit; font-size: inherit; }
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+}
+
+/* ═══════════════════════════════════════════
+   UTILITY
+   ═══════════════════════════════════════════ */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 24px;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background-color: var(--color-accent);
+}
+
+.section-title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin-bottom: 20px;
+}
+
+.section-subtitle {
+  font-size: clamp(15px, 2vw, 18px);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+/* ═══════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 36px;
+  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.01em;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  box-shadow: 0 1px 3px rgba(37,99,235,0.3), 0 4px 12px rgba(37,99,235,0.15);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+  box-shadow: 0 2px 6px rgba(37,99,235,0.35), 0 8px 24px rgba(37,99,235,0.2);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(37,99,235,0.3);
+}
+
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background-color: var(--color-white);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-text-muted);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: var(--color-white);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ═══════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════ */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  background-color: rgba(255,255,255,0.0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  transition: all var(--transition);
+  border-bottom: 1px solid transparent;
+}
+
+.header.scrolled {
+  background-color: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom-color: var(--color-border-light);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.03);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.header__logo {
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  flex-shrink: 0;
+}
+
+.header__logo span {
+  color: var(--color-accent);
+}
+
+.header__nav {
+  display: none;
+  align-items: center;
+  gap: 36px;
+}
+
+.header__nav-link {
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+.header__nav-link:hover {
+  color: var(--color-text);
+}
+
+.header__nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--color-accent);
+  transition: width var(--transition);
+}
+
+.header__nav-link:hover::after {
+  width: 100%;
+}
+
+.header__cta {
+  display: none;
+}
+
+.header__burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.header__burger-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-text);
+  border-radius: 2px;
+  transition: all var(--transition);
+  transform-origin: center;
+}
+
+.header__burger.active .header__burger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.header__burger.active .header__burger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.header__burger.active .header__burger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile menu */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition);
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu__link {
+  font-size: 24px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  transition: color var(--transition-fast);
+}
+
+.mobile-menu__link:hover {
+  color: var(--color-accent);
+}
+
+@media (min-width: 768px) {
+  .header__nav { display: flex; }
+  .header__cta { display: inline-flex; }
+  .header__burger { display: none; }
+}
+
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: calc(var(--header-height) + 40px);
+  padding-bottom: var(--section-padding-y);
+}
+
+.hero__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 780px;
+}
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background-color: var(--color-accent-light);
+  border: 1px solid rgba(37,99,235,0.12);
+  font-size: 13px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-accent);
+  width: fit-content;
+}
+
+.hero__badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-success);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.hero__title {
+  font-size: clamp(40px, 7vw, 72px);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+}
+
+.hero__title em {
+  font-style: normal;
+  color: var(--color-accent);
+}
+
+.hero__subtitle {
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  max-width: 520px;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.hero__note {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: -8px;
+}
+
+@media (min-width: 768px) {
+  .hero__actions { flex-wrap: nowrap; }
+}
+
+/* ═══════════════════════════════════════════
+   PERFORMANCE METRICS
+   ═══════════════════════════════════════════ */
+.metrics {
+  padding: var(--section-padding-y) 0;
+  background-color: var(--color-bg);
+}
+
+.metrics__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background-color: var(--color-border);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.metric {
+  background-color: var(--color-bg);
+  padding: clamp(28px, 4vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: background-color var(--transition);
+}
+
+.metric:hover {
+  background-color: var(--color-bg-alt);
+}
+
+.metric:nth-child(2) { border-radius: 0 var(--radius-lg-1, 16px) 0 0; }
+.metric:nth-child(4) { border-radius: 0 0 var(--radius-lg-1, 16px) 0; }
+
+.metric__value {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--color-text);
+}
+
+.metric__value span {
+  color: var(--color-accent);
+}
+
+.metric__label {
+  font-size: 13px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.metric__bar {
+  width: 40px;
+  height: 3px;
+  border-radius: 3px;
+  background-color: var(--color-accent);
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════
+   PROCESS
+   ═══════════════════════════════════════════ */
+.process {
+  padding: var(--section-padding-y) 0;
+  background-color: var(--color-bg-alt);
+}
+
+.process__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--grid-gap);
+  margin-top: clamp(40px, 6vw, 64px);
+}
+
+.process-step {
+  display: flex;
+  gap: clamp(16px, 3vw, 24px);
+  padding: clamp(24px, 3vw, 40px);
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  transition: all var(--transition);
+}
+
+.process-step:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border);
+  transform: translateY(-2px);
+}
+
+.process-step__number {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background-color: var(--color-accent-light);
+  font-size: 16px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+}
+
+.process-step__content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.process-step__title {
+  font-size: clamp(16px, 2vw, 18px);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.process-step__text {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+.process-step__time {
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent);
+  letter-spacing: 0.02em;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+@media (min-width: 768px) {
+  .process__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .process__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   PRICING
+   ═══════════════════════════════════════════ */
+.pricing {
+  padding: var(--section-padding-y) 0;
+  background-color: var(--color-bg);
+}
+
+.pricing__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--grid-gap);
+  margin-top: clamp(40px, 6vw, 64px);
+  max-width: 800px;
+}
+
+.pricing-card {
+  position: relative;
+  padding: clamp(32px, 4vw, 48px);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  transition: all var(--transition);
+}
+
+.pricing-card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(37,99,235,0.15);
+}
+
+.pricing-card--featured {
+  border-color: var(--color-accent);
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-md);
+}
+
+.pricing-card--featured::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-accent), #60A5FA);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.pricing-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.pricing-card__name {
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.pricing-card__price {
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.pricing-card__price span {
+  font-size: 0.5em;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.pricing-card__desc {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.pricing-card__features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.pricing-card__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.pricing-card__feature-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-top: 1px;
+}
+
+.pricing-card__feature-icon--check {
+  background-color: rgba(22, 163, 74, 0.1);
+  color: var(--color-success);
+}
+
+.pricing-card__feature-icon--bot {
+  background-color: var(--color-accent-light);
+  color: var(--color-accent);
+}
+
+.pricing-card__divider {
+  height: 1px;
+  background-color: var(--color-border-light);
+  margin: 4px 0 24px;
+}
+
+.pricing-card .btn {
+  width: 100%;
+  padding: 18px 24px;
+  font-size: 15px;
+}
+
+.pricing-card__note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 16px;
+  line-height: 1.6;
+}
+
+@media (min-width: 640px) {
+  .pricing__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   FORM
+   ═══════════════════════════════════════════ */
+.contact {
+  padding: var(--section-padding-y) 0;
+  background-color: var(--color-bg-alt);
+}
+
+.contact__wrapper {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.contact__header {
+  text-align: center;
+  margin-bottom: clamp(32px, 5vw, 48px);
+}
+
+.contact__header .section-label {
+  justify-content: center;
+}
+
+.contact__header .section-label::before {
+  display: none;
+}
+
+.contact__header .section-subtitle {
+  margin: 0 auto;
+}
+
+.contact__form {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-light);
+  padding: clamp(28px, 4vw, 48px);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.form-group:last-of-type {
+  margin-bottom: 20px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 20px 0 8px;
+  font-size: 15px;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--color-border);
+  outline: none;
+  transition: border-color var(--transition);
+  border-radius: 0;
+}
+
+.form-input:focus {
+  border-bottom-color: var(--color-accent);
+}
+
+.form-label {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  font-size: 15px;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  transition: all var(--transition);
+  transform-origin: left top;
+}
+
+.form-input:focus ~ .form-label,
+.form-input:not(:placeholder-shown) ~ .form-label {
+  top: 2px;
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.form-input.valid { border-bottom-color: var(--color-success); }
+.form-input.valid ~ .form-label { color: var(--color-success); }
+.form-input.invalid { border-bottom-color: var(--color-error); }
+.form-input.invalid ~ .form-label { color: var(--color-error); }
+
+.form-error {
+  display: none;
+  font-size: 12px;
+  color: var(--color-error);
+  margin-top: 6px;
+  padding-left: 0;
+}
+
+.form-error.visible {
+  display: block;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 28px;
+  cursor: pointer;
+}
+
+.form-checkbox input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 5px;
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  margin-top: 1px;
+  transition: all var(--transition-fast);
+}
+
+.form-checkbox input[type="checkbox"]:checked {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.form-checkbox input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 6px;
+  width: 5px;
+  height: 9px;
+  border: solid var(--color-white);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.form-checkbox__text {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.form-checkbox__text strong {
+  color: var(--color-text);
+}
+
+/* Form states */
+.form-success,
+.form-error-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 24px;
+  gap: 16px;
+}
+
+.form-success.active,
+.form-error-state.active {
+  display: flex;
+}
+
+.form-state-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.form-state-icon--success {
+  background-color: rgba(22,163,74,0.08);
+  color: var(--color-success);
+}
+
+.form-state-icon--error {
+  background-color: rgba(220,38,38,0.08);
+  color: var(--color-error);
+}
+
+.form-state-title {
+  font-size: 24px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.form-state-text {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+.footer {
+  padding: clamp(40px, 5vw, 64px) 0;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 4vw, 48px);
+}
+
+.footer__top {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.footer__brand {
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+}
+
+.footer__brand span {
+  color: var(--color-accent);
+}
+
+.footer__tagline {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  max-width: 320px;
+}
+
+.footer__contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer__contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.footer__contact:hover {
+  color: var(--color-accent);
+}
+
+.footer__contact svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.footer__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer__link {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.footer__link:hover {
+  color: var(--color-text-secondary);
+}
+
+.footer__copy {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 768px) {
+  .footer__top {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .footer__bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Кастомні лендинги",
+  "description": "Ручна розробка лендінгів з нуля. Чистий код, максимальна швидкість.",
+  "areaServed": "UA",
+  "priceRange": "$$",
+  "serviceType": "Web Development"
+}
+</script>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════ -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a href="#" class="header__logo">ko<span>.</span>d</a>
+
+    <nav class="header__nav" aria-label="Основна навігація">
+      <a href="#process" class="header__nav-link">Процес</a>
+      <a href="#pricing" class="header__nav-link">Вартість</a>
+      <a href="#contact" class="header__nav-link">Контакти</a>
+    </nav>
+
+    <a href="#contact" class="btn btn-primary header__cta" style="padding: 12px 24px; font-size: 14px;">
+      Обговорити проєкт
+    </a>
+
+    <button class="header__burger" id="burger" aria-label="Відкрити меню" aria-expanded="false">
+      <span class="header__burger-line"></span>
+      <span class="header__burger-line"></span>
+      <span class="header__burger-line"></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <a href="#process" class="mobile-menu__link">Процес</a>
+  <a href="#pricing" class="mobile-menu__link">Вартість</a>
+  <a href="#contact" class="mobile-menu__link">Контакти</a>
+  <a href="#contact" class="btn btn-primary" style="margin-top: 16px;">Обговорити проєкт</a>
+</div>
+
+<main>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+<section class="hero" aria-label="Головний екран">
+  <div class="container">
+    <div class="hero__inner">
+
+      <div class="hero__badge reveal">
+        <span class="hero__badge-dot"></span>
+        Приймаю замовлення
+      </div>
+
+      <h1 class="hero__title reveal reveal-delay-1">
+        Створюю лендинги,<br>
+        що генерують <em>прибуток</em>
+      </h1>
+
+      <p class="hero__subtitle reveal reveal-delay-2">
+        Кастомна розробка з нуля. Швидкість завантаження
+        менше 0.5 секунди. Без конструкторів та шаблонів.
+        Кожен піксель — вручну.
+      </p>
+
+      <div class="hero__actions reveal reveal-delay-3">
+        <a href="#contact" class="btn btn-primary">
+          Обговорити проєкт
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="#process" class="btn btn-secondary">Як я працюю</a>
+      </div>
+
+      <p class="hero__note reveal reveal-delay-4">
+        Безкоштовна консультація · Відповідь протягом 2 годин
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PERFORMANCE METRICS
+     ═══════════════════════════════════════════ -->
+<section class="metrics" id="metrics" aria-label="Показники продуктивності">
+  <div class="container">
+    <div class="section-label reveal">Технічний стандарт</div>
+    <h2 class="section-title reveal reveal-delay-1">Цифри, які говорять<br>за мене</h2>
+    <div class="metrics__grid reveal reveal-delay-2">
+
+      <div class="metric">
+        <div class="metric__value">100<span>/100</span></div>
+        <div class="metric__label">Mobile Pagespeed Score</div>
+        <div class="metric__bar"></div>
+      </div>
+
+      <div class="metric">
+        <div class="metric__value">0.00</div>
+        <div class="metric__label">Cumulative Layout Shift</div>
+        <div class="metric__bar"></div>
+      </div>
+
+      <div class="metric">
+        <div class="metric__value">&lt; 0.5<span>s</span></div>
+        <div class="metric__label">Час завантаження</div>
+        <div class="metric__bar"></div>
+      </div>
+
+      <div class="metric">
+        <div class="metric__value">0</div>
+        <div class="metric__label">Залежностей від CDN</div>
+        <div class="metric__bar"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PROCESS
+     ═══════════════════════════════════════════ -->
+<section class="process" id="process" aria-label="Процес роботи">
+  <div class="container">
+    <div class="section-label reveal">Процес</div>
+    <h2 class="section-title reveal reveal-delay-1">Від ідеї до запуску<br>за 7 днів</h2>
+    <p class="section-subtitle reveal reveal-delay-2">
+      Чіткий, прозорий процес. Ви бачите кожен етап
+      і контролюєте результат на кожному кроці.
+    </p>
+
+    <div class="process__grid">
+      <div class="process-step reveal">
+        <div class="process-step__number">01</div>
+        <div class="process-step__content">
+          <h3 class="process-step__title">Бриф та аналіз</h3>
+          <p class="process-step__text">
+            Збираю вимоги, вивчаю вашу нішу та конкурентів.
+            Визначаємо цільову аудиторію та ключові меседжі.
+          </p>
+          <span class="process-step__time">1 день</span>
+        </div>
+      </div>
+
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-step__number">02</div>
+        <div class="process-step__content">
+          <h3 class="process-step__title">Дизайн та структура</h3>
+          <p class="process-step__text">
+            Створюю wireframe, потім візуальний дизайн.
+            Кожен елемент позиціонується для конверсії.
+          </p>
+          <span class="process-step__time">2 дні</span>
+        </div>
+      </div>
+
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-step__number">03</div>
+        <div class="process-step__content">
+          <h3 class="process-step__title">Розробка</h3>
+          <p class="process-step__text">
+            Чистий HTML + CSS + JS. Semantic, SEO-friendly,
+            performance-first. Ви бачите прогрес у реальному часі.
+          </p>
+          <span class="process-step__time">3 дні</span>
+        </div>
+      </div>
+
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-step__number">04</div>
+        <div class="process-step__content">
+          <h3 class="process-step__title">Тестування та запуск</h3>
+          <p class="process-step__text">
+            Перевірка на всіх пристроях, налаштування форми,
+            деплой на хостинг. Готовий проєкт — у вас.
+          </p>
+          <span class="process-step__time">1 день</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PRICING
+     ═══════════════════════════════════════════ -->
+<section class="pricing" id="pricing" aria-label="Вартість послуг">
+  <div class="container">
+    <div class="section-label reveal">Вартість та послуги</div>
+    <h2 class="section-title reveal reveal-delay-1">Прозоре ціноутворення,<br>без прихованих платежів</h2>
+    <p class="section-subtitle reveal reveal-delay-2">
+      Фінальна ціна залежить від складності. Кожен проєкт
+      розраховується індивідуально після бесіди.
+    </p>
+
+    <div class="pricing__grid">
+
+      <!-- Base plan -->
+      <div class="pricing-card reveal">
+        <div class="pricing-card__header">
+          <span class="pricing-card__name">Кастомний лендінг</span>
+          <div class="pricing-card__price">від 1 500 <span>грн</span></div>
+        </div>
+        <p class="pricing-card__desc">
+          Лендинг, розроблений вручну з нуля. Не шаблон, не конструктор —
+          унікальний код під ваш бізнес.
+        </p>
+        <ul class="pricing-card__features">
+          <li class="pricing-card__feature">
+            <span class="pricing-card__feature-icon pricing-card__feature-icon--check">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            </span>
+            Адаптивна верстка (мобільний + десктоп)
+          </li>
+          <li class="pricing-card__feature">
+            <span class="pricing-card__feature-icon pricing-card__feature-icon--check">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            </span>
+            Semantic HTML + SEO-оптимізація
+          </li>
+          <li class="pricing-card__feature">
+            <span class="pricing-card__feature-icon pricing-card__feature-icon--check">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            </span>
+            Pagespeed 100/100
+          </li>
+          <li class="pricing-card__feature">
+            <span class="pricing-card__feature-icon pricing-card__feature-icon--check">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            </span>
+            Контактна форма (лиди → Telegram)
+          </li>
+          <li class="pricing-card__feature">
+            <span class="pricing-card__feature-icon pricing-card__feature-icon--check">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            </span>
+            Деплой на хостинг
+          </li>
+        </ul>
+        <a href="#contact" class="btn btn-secondary">Обговорити</a>
+        <p class="pricing-card__note">Термін виконання: 5–7 робочих днів</p>
+      </div>
+
+      <!-- Upsell: TG Bot -->
+      <div class="pricing-card pricing-card--featured reveal reveal-delay-1">
+        <div class="pricing-card__header">
+          <span class="pricing-card__name">Telegram-бот для лідів</span>
+          <div class="pricing-card__price">+500 <span>грн</span></div>
+        </div>
+        <p class="pricing-card__desc">
+          Автоматизована система обробки заявок. Кожен лід
+          миттєво потрапляє у ваш Telegram у зручному форматі.
+        </p>
+        <ul class="pricing-card__features">
+          <li class="pricing-card__feature">
+            <span class="pricing-card__feature-icon pricing-card__feature-icon--bot">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            Миттєве сповіщення у Telegram
+          </li>
+          <li class="pricing-card__feature">
+            <span class="pricing-card__feature-icon pricing-card__feature-icon--bot">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            Форматоване повідомлення з даними клієнта
+          </li>
+          <li class="pricing-card__feature">
+            <span class="pricing-card__feature-icon pricing-card__feature-icon--bot">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            Захист від спаму (валідація на фронтенді)
+          </li>
+          <li class="pricing-card__feature">
+            <span class="pricing-card__feature-icon pricing-card__feature-icon--bot">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            Працює 24/7 без участі власника
+          </li>
+        </ul>
+        <a href="#contact" class="btn btn-primary">
+          Замовити разом з лендінгом
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <p class="pricing-card__note">Підключається протягом 1 дня після запуску лендінгу</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CONTACT FORM
+     ═══════════════════════════════════════════ -->
+<section class="contact" id="contact" aria-label="Форма зв'язку">
+  <div class="container">
+    <div class="contact__wrapper">
+      <div class="contact__header">
+        <div class="section-label reveal">Контакти</div>
+        <h2 class="section-title reveal reveal-delay-1" style="margin-left:auto;margin-right:auto;">Обговоримо<br>ваш проєкт?</h2>
+        <p class="section-subtitle reveal reveal-delay-2">
+          Залиште заявку — я зв'яжуся протягом 2 годин.
+          Безкоштовна консультація, без зобов'язань.
+        </p>
+      </div>
+
+      <div class="contact__form reveal reveal-delay-3">
+
+        <form id="lead-form" novalidate>
+          <div class="form-group">
+            <input type="text" id="f-name" name="name" class="form-input"
+                   placeholder=" " autocomplete="name" required aria-required="true">
+            <label class="form-label" for="f-name">Ваше ім'я</label>
+            <div class="form-error" id="f-name-error"></div>
+          </div>
+
+          <div class="form-group">
+            <input type="tel" id="f-phone" name="phone" class="form-input"
+                   placeholder=" " autocomplete="tel" required aria-required="true">
+            <label class="form-label" for="f-phone">Телефон або Telegram</label>
+            <div class="form-error" id="f-phone-error"></div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="f-msg" name="message" class="form-input"
+                   placeholder=" ">
+            <label class="form-label" for="f-msg">Опишіть ваш проєкт (необов'язково)</label>
+          </div>
+
+          <label class="form-checkbox">
+            <input type="checkbox" id="f-bot" name="need_bot">
+            <span class="form-checkbox__text">
+              Потрібен <strong>Telegram-бот</strong> для автоматичної обробки лідів (+500 грн)
+            </span>
+          </label>
+
+          <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%;padding:18px 24px;">
+            <span id="btn-text">Надіслати заявку</span>
+            <svg class="btn-icon" id="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+            </svg>
+            <span class="btn-spinner" id="btn-spinner" style="display:none;"></span>
+          </button>
+        </form>
+
+        <!-- Success -->
+        <div class="form-success" id="form-success">
+          <div class="form-state-icon form-state-icon--success">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <h3 class="form-state-title">Заявку надіслано!</h3>
+          <p class="form-state-text">Дякую! Я зв'яжуся з вами протягом 2 годин.</p>
+        </div>
+
+        <!-- Error -->
+        <div class="form-error-state" id="form-error">
+          <div class="form-state-icon form-state-icon--error">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </div>
+          <h3 class="form-state-title">Щось пішло не так</h3>
+          <p class="form-state-text">
+            Спробуйте ще раз або напишіть мені в
+            <a href="https://t.me/YOUR_TELEGRAM" style="color:var(--color-accent);font-weight:600;">Telegram</a>.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+
+      <div class="footer__top">
+        <div>
+          <div class="footer__brand">ko<span>.</span>d</div>
+          <p class="footer__tagline">
+            Кастомна розробка лендінгів з нуля.<br>
+            Чистий код, максимальна швидкість.
+          </p>
+        </div>
+
+        <div class="footer__contacts">
+          <a href="https://t.me/YOUR_TELEGRAM" target="_blank" rel="noopener noreferrer" class="footer__contact">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.953.027-.216.325-.437.89-.733z"/>
+            </svg>
+            Telegram
+          </a>
+          <a href="mailto:hello@yourdomain.com" class="footer__contact">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M22 7l-10 6L2 7"/>
+            </svg>
+            Email
+          </a>
+          <a href="https://instagram.com/YOUR_INSTAGRAM" target="_blank" rel="noopener noreferrer" class="footer__contact">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="5"/>
+              <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+            </svg>
+            Instagram
+          </a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__links">
+          <a href="#" class="footer__link">Політика конфіденційності</a>
+          <a href="#" class="footer__link">Умови використання</a>
+          <a href="#" class="footer__link">Cookies</a>
+        </div>
+        <div class="footer__copy">© 2026 ko.d. Всі права захищені.</div>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // ═══ CONFIG ═══
+  var API_ENDPOINT = '/api/lead';
+  var TG_USERNAME = 'YOUR_TELEGRAM';
+
+  // ═══ HEADER SCROLL ═══
+  var header = document.getElementById('header');
+  var lastScroll = 0;
+
+  function onScroll() {
+    var y = window.scrollY;
+    if (y > 40) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+    lastScroll = y;
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ═══ BURGER MENU ═══
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobile-menu');
+  var mobileLinks = mobileMenu.querySelectorAll('a');
+
+  burger.addEventListener('click', function() {
+    var isOpen = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('active');
+    burger.setAttribute('aria-expanded', isOpen);
+    mobileMenu.setAttribute('aria-hidden', !isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  for (var i = 0; i < mobileLinks.length; i++) {
+    mobileLinks[i].addEventListener('click', function() {
+      mobileMenu.classList.remove('open');
+      burger.classList.remove('active');
+      burger.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    });
+  }
+
+  // ═══ INTERSECTION OBSERVER — REVEAL ═══
+  var revealEls = document.querySelectorAll('.reveal');
+  var revealObserver = new IntersectionObserver(function(entries) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) {
+        entries[i].target.classList.add('visible');
+        revealObserver.unobserve(entries[i].target);
+      }
+    }
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+  for (var j = 0; j < revealEls.length; j++) {
+    revealObserver.observe(revealEls[j]);
+  }
+
+  // ═══ FORM VALIDATION ═══
+  var form = document.getElementById('lead-form');
+  var nameInput = document.getElementById('f-name');
+  var phoneInput = document.getElementById('f-phone');
+  var submitBtn = document.getElementById('submit-btn');
+  var btnText = document.getElementById('btn-text');
+  var btnIcon = document.getElementById('btn-icon');
+  var btnSpinner = document.getElementById('btn-spinner');
+  var formSuccess = document.getElementById('form-success');
+  var formError = document.getElementById('form-error');
+
+  function showError(id, msg) {
+    var el = document.getElementById(id);
+    el.textContent = msg;
+    el.classList.add('visible');
+  }
+  function hideError(id) {
+    document.getElementById(id).classList.remove('visible');
+  }
+
+  function validateName(val) {
+    if (!val.trim()) return 'Обов\'язкове поле';
+    if (val.trim().length < 2) return 'Мінімум 2 символи';
+    return '';
+  }
+
+  function validatePhone(val) {
+    var c = val.replace(/\s/g, '');
+    if (!c) return 'Обов\'язкове поле';
+    if (c.startsWith('@') && c.length < 5) return 'Вкажіть повний @username';
+    if (!c.startsWith('@') && c.length < 9) return 'Короткий номер';
+    return '';
+  }
+
+  nameInput.addEventListener('input', function() {
+    var err = validateName(nameInput.value);
+    nameInput.classList.toggle('valid', !err && nameInput.value.length > 0);
+    nameInput.classList.toggle('invalid', !!err && nameInput.value.length > 0);
+    if (err && nameInput.value.length > 0) showError('f-name-error', err);
+    else hideError('f-name-error');
+  });
+
+  phoneInput.addEventListener('input', function() {
+    var err = validatePhone(phoneInput.value);
+    phoneInput.classList.toggle('valid', !err && phoneInput.value.length > 0);
+    phoneInput.classList.toggle('invalid', !!err && phoneInput.value.length > 0);
+    if (err && phoneInput.value.length > 0) showError('f-phone-error', err);
+    else hideError('f-phone-error');
+  });
+
+  // ═══ FORM SUBMIT — ASYNC ═══
+  function setLoading(on) {
+    submitBtn.disabled = on;
+    btnText.textContent = on ? 'Надсилаємо...' : 'Надіслати заявку';
+    btnIcon.style.display = on ? 'none' : '';
+    btnSpinner.style.display = on ? '' : 'none';
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var nameErr = validateName(nameInput.value);
+    var phoneErr = validatePhone(phoneInput.value);
+
+    if (nameErr) {
+      nameInput.classList.add('invalid');
+      showError('f-name-error', nameErr);
+      nameInput.focus();
+      return;
+    }
+    if (phoneErr) {
+      phoneInput.classList.add('invalid');
+      showError('f-phone-error', phoneErr);
+      phoneInput.focus();
+      return;
+    }
+
+    var payload = {
+      name: nameInput.value.trim(),
+      contact: phoneInput.value.trim(),
+      message: document.getElementById('f-msg').value.trim(),
+      need_bot: document.getElementById('f-bot').checked
+    };
+
+    setLoading(true);
+
+    // Try backend first, fallback to TG
+    fetch(API_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(res) {
+      if (res.ok) {
+        showSuccess();
+      } else {
+        return Promise.reject(new Error(res.status));
+      }
+    })
+    .catch(function() {
+      // Fallback: open Telegram
+      var lines = [
+        'Нова заявка з лендінгу!',
+        '',
+        "Ім'я: " + payload.name,
+        'Контакт: ' + payload.contact
+      ];
+      if (payload.message) lines.push('Проєкт: ' + payload.message);
+      if (payload.need_bot) lines.push('TG-бот: ТАК');
+
+      var tgText = encodeURIComponent(lines.join('\n'));
+      window.open('https://t.me/' + TG_USERNAME + '?text=' + tgText, '_blank');
+      showSuccess();
+    })
+    .finally(function() {
+      setLoading(false);
+    });
+  });
+
+  function showSuccess() {
+    form.style.display = 'none';
+    formSuccess.classList.add('active');
+    formError.classList.remove('active');
+  }
+
+})();
+</script>
+
+</body>
+</html>
