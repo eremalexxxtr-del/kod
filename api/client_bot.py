@@ -13,31 +13,44 @@ class handler(BaseHTTPRequestHandler):
             
             if "message" in update:
                 chat_id = update["message"]["chat"]["id"]
-                user_name = update["message"]["from"].get("first_name", "Друже")
+                user_name = update["message"]["from"].get("first_name", "Клієнт")
+                text_received = update["message"].get("text", "")
                 token = os.environ.get('CLIENT_BOT_TOKEN')
-                
-                text = (
-                    f"👋 Вітаю, {user_name}!\n\n"
-                    f"Дякую за довіру! Я отримав вашу заявку на розробку лендингу. 🚀\n\n"
-                    f"👇 Ось обіцяні матеріали. Тисніть на кнопки нижче:"
-                )
-                
-                # ВОТ ТВОИ КНОПКИ МЕНЮ (с рабочими ссылками-заглушками)
-                reply_markup = {
-                    "inline_keyboard": [
-                        [{"text": "📊 Мій прайс-лист", "url": "https://google.com"}],
-                        [{"text": "📝 Бриф на розробку", "url": "https://google.com"}],
-                        [{"text": "👨‍💻 Написати мені особисто", "url": "https://t.me/telegram"}] 
-                    ]
-                }
-                
                 url = f"https://api.telegram.org/bot{token}/sendMessage"
-                requests.post(url, json={
-                    "chat_id": chat_id, 
-                    "text": text,
-                    "parse_mode": "Markdown",
-                    "reply_markup": reply_markup
-                })
+                
+                # 1. Если клиент только зашел и нажал /start
+                if text_received == "/start":
+                    text = (
+                        f"👋 Вітаю, {user_name}!\n\n"
+                        f"Я отримав заявку на розробку лендингу. 🚀\n"
+                        f"Обирай потрібний розділ у меню внизу екрана 👇"
+                    )
+                    # ВОТ ОНА - НИЖНЯЯ КЛАВИАТУРА ВМЕСТО ПОЛЯ ВВОДА
+                    reply_markup = {
+                        "keyboard": [
+                            [{"text": "📊 Мій прайс-лист"}],
+                            [{"text": "📝 Бриф на розробку"}],
+                            [{"text": "👨‍💻 Написати мені особисто"}]
+                        ],
+                        "resize_keyboard": True, # Делает кнопки аккуратными
+                        "is_persistent": True    # Держит клавиатуру всегда открытой
+                    }
+                    requests.post(url, json={"chat_id": chat_id, "text": text, "reply_markup": reply_markup})
+                
+                # 2. Обработка нажатий на нижние кнопки (тут вставляй свои ссылки)
+                elif text_received == "📊 Мій прайс-лист":
+                    requests.post(url, json={"chat_id": chat_id, "text": "Ось посилання на мій прайс: https://google.com"})
+                    
+                elif text_received == "📝 Бриф на розробку":
+                    requests.post(url, json={"chat_id": chat_id, "text": "Заповнити бриф можна за цим посиланням: https://google.com"})
+                    
+                elif text_received == "👨‍💻 Написати мені особисто":
+                    requests.post(url, json={"chat_id": chat_id, "text": "Пиши напряму сюди: https://t.me/твой_юзернейм"})
+                    
+                # 3. ЗАЩИТА ОТ СПАМА (если пишут любой текст руками)
+                else:
+                    requests.post(url, json={"chat_id": chat_id, "text": "Будь ласка, користуйся кнопками внизу екрана 👇"})
+
         except Exception as e:
             print("Error:", e)
 
