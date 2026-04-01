@@ -1,23 +1,35 @@
-# NTVX Landing
+﻿# NTVX Studio Landing
 
-Односторінковий landing із кастомною версткою та двома Python serverless-функціями:
-
-- `/api/lead` приймає ліди з форми та пересилає їх у Telegram
-- `/api/client_bot` обробляє Telegram webhook і працює як concierge-бот студії
+SEO-орієнтований лендинг веб-студії на Next.js App Router з Python serverless-функціями для форми та Telegram-бота.
 
 ## Стек
 
-- HTML, CSS, JavaScript без збірки
+- Next.js 15
+- React 19
+- TypeScript
 - Python serverless handlers
-- `requests` для викликів Telegram Bot API
+- Telegram Bot API через `requests`
 
 ## Структура
 
-- `index.html` - лендинг
-- `api/lead.py` - прийом лідів із форми
-- `api/client_bot.py` - сценарії Telegram-бота
-- `assets/brand/ntvx-logo.png` - логотип NTVX
-- `.env.example` - приклад env-перемінних
+- `app/layout.tsx` — глобальна metadata-конфігурація, canonical, OG, robots
+- `app/page.tsx` — основний лендинг українською мовою
+- `app/globals.css` — стилі сторінки
+- `components/lead-form.tsx` — клієнтська форма заявки
+- `api/lead.py` — прийом заявок і доставка в Telegram
+- `api/client_bot.py` — webhook Telegram-бота
+- `public/robots.txt` — правила індексації
+- `public/sitemap.xml` — sitemap для домену
+- `assets/brand/ntvx-logo.png` — логотип NTVX
+- `index.html` — legacy-версія попереднього статичного лендингу
+
+## Команди
+
+```bash
+npm install
+npm run dev
+npm run build
+```
 
 ## Env variables
 
@@ -25,7 +37,7 @@
 
 - `TELEGRAM_BOT_TOKEN`
 - `TELEGRAM_CHAT_ID`
-- `TELEGRAM_MESSAGE_THREAD_ID` - опціонально, якщо ліди треба складати в окремий topic/forum thread
+- `TELEGRAM_MESSAGE_THREAD_ID` — опціонально
 
 Для `api/client_bot.py`:
 
@@ -40,27 +52,11 @@
 - `NTVX_RESPONSE_TIME`
 - `NTVX_LANDING_PAYLOAD`
 
-## Що вже реалізовано
+## Деплой
 
-- бренд NTVX інтегрований у landing і bot-flow
-- success-state на сайті веде в Telegram deep link бота
-- concierge-бот підтримує `/start`, `/menu`, `/help`, inline menu і сценарії:
-  - матеріали
-  - прайс
-  - бриф
-  - кейси
-  - дзвінок
-  - прямий контакт
-- при переході з лендингу бот автоматично відкриває матеріали через payload `landing_materials`
-- lead-бот відправляє структуровані повідомлення з `leadId`, джерелом, комплектацією та часом заповнення форми
-- є honeypot і базовий антиспам по занадто швидкому заповненню форми
+Проєкт розрахований на Vercel:
 
-## Порада по продакшену
-
-- після зміни Telegram token оновлюйте env у Vercel
-- після оновлення env робіть redeploy
-- після нового token заново встановлюйте webhook
-
-## Примітка
-
-У цьому середовищі Python відсутній у `PATH`, тому локальний запуск або компіляційну перевірку serverless-функцій звідси виконати не вдалося.
+- Next.js відповідає за публічний лендинг
+- `api/*.py` залишаються serverless-функціями
+- після зміни env у Vercel потрібно зробити redeploy
+- після зміни Telegram token потрібно повторно встановити webhook
