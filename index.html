@@ -632,6 +632,8 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   border: 1px solid var(--color-border);
   background-color: var(--color-bg);
   transition: all var(--transition);
+  /* ФІКС: Обрізаємо все, що виходить за межі закруглених кутів картки */
+  overflow: hidden; 
 }
 
 .pricing-card:hover {
@@ -652,8 +654,8 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--color-accent), #60A5FA);
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  /* ФІКС: Суцільний синій колір, без border-radius (він тепер обрізається батьківським overflow: hidden) */
+  background: var(--color-accent); 
 }
 
 .pricing-card__header {
@@ -1107,9 +1109,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
 <body>
 
-<!-- ═══════════════════════════════════════════
-     HEADER
-     ═══════════════════════════════════════════ -->
 <header class="header" id="header">
   <div class="header__inner">
     <a href="#" class="header__logo">ko<span>.</span>d</a>
@@ -1132,7 +1131,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   </div>
 </header>
 
-<!-- Mobile menu -->
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
   <a href="#process" class="mobile-menu__link">Процес</a>
   <a href="#pricing" class="mobile-menu__link">Вартість</a>
@@ -1142,9 +1140,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
 <main>
 
-<!-- ═══════════════════════════════════════════
-     HERO
-     ═══════════════════════════════════════════ -->
 <section class="hero" aria-label="Головний екран">
   <div class="container">
     <div class="hero__inner">
@@ -1183,9 +1178,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     PERFORMANCE METRICS
-     ═══════════════════════════════════════════ -->
 <section class="metrics" id="metrics" aria-label="Показники продуктивності">
   <div class="container">
     <div class="section-label reveal">Технічний стандарт</div>
@@ -1220,9 +1212,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     PROCESS
-     ═══════════════════════════════════════════ -->
 <section class="process" id="process" aria-label="Процес роботи">
   <div class="container">
     <div class="section-label reveal">Процес</div>
@@ -1284,9 +1273,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     PRICING
-     ═══════════════════════════════════════════ -->
 <section class="pricing" id="pricing" aria-label="Вартість послуг">
   <div class="container">
     <div class="section-label reveal">Вартість та послуги</div>
@@ -1298,7 +1284,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
     <div class="pricing__grid">
 
-      <!-- Base plan -->
       <div class="pricing-card reveal">
         <div class="pricing-card__header">
           <span class="pricing-card__name">Кастомний лендінг</span>
@@ -1344,7 +1329,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
         <p class="pricing-card__note">Термін виконання: 5–7 робочих днів</p>
       </div>
 
-      <!-- Upsell: TG Bot -->
       <div class="pricing-card pricing-card--featured reveal reveal-delay-1">
         <div class="pricing-card__header">
           <span class="pricing-card__name">Telegram-бот для лідів</span>
@@ -1391,9 +1375,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     CONTACT FORM
-     ═══════════════════════════════════════════ -->
 <section class="contact" id="contact" aria-label="Форма зв'язку">
   <div class="container">
     <div class="contact__wrapper">
@@ -1445,7 +1426,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
           </button>
         </form>
 
-        <!-- Success -->
         <div class="form-success" id="form-success">
           <div class="form-state-icon form-state-icon--success">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1455,7 +1435,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
           <h3 class="form-state-title">Заявку надіслано!</h3>
           <p class="form-state-text">Я зв'яжуся з вами протягом 2 годин.</p>
           
-          <!-- НОВАЯ КНОПКА ДЛЯ КЛИЕНТСКОГО БОТА -->
           <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--color-border-light);">
             <p style="font-size: 13px; color: var(--color-text); margin-bottom: 12px;">🎁 Отримайте бриф та прайс-лист миттєво у нашому боті:</p>
             <a href="https://t.me/DevCraft_Helper_Bot" target="_blank" class="btn btn-primary" style="padding: 12px 20px; font-size: 13px; width: auto;">
@@ -1464,7 +1443,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
           </div>
         </div>
 
-        <!-- Error -->
         <div class="form-error-state" id="form-error">
           <div class="form-state-icon form-state-icon--error">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1474,7 +1452,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
           <h3 class="form-state-title">Щось пішло не так</h3>
           <p class="form-state-text">
             Спробуйте ще раз або напишіть мені в
-            <a href="https://t.me/YOUR_TELEGRAM" style="color:var(--color-accent);font-weight:600;">Telegram</a>.
+            <a href="https://t.me/ntvx31" style="color:var(--color-accent);font-weight:600;">Telegram</a>.
           </p>
         </div>
 
@@ -1485,9 +1463,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
 </main>
 
-<!-- ═══════════════════════════════════════════
-     FOOTER
-     ═══════════════════════════════════════════ -->
 <footer class="footer">
   <div class="container">
     <div class="footer__inner">
@@ -1502,26 +1477,26 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
         </div>
 
         <div class="footer__contacts">
-          <a href="https://t.me/YOUR_TELEGRAM" target="_blank" rel="noopener noreferrer" class="footer__contact">
+          <a href="https://t.me/ntvx31" target="_blank" rel="noopener noreferrer" class="footer__contact">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.953.027-.216.325-.437.89-.733z"/>
             </svg>
-            Telegram
+            Telegram: @ntvx31
           </a>
-          <a href="mailto:hello@yourdomain.com" class="footer__contact">
+          <a href="mailto:contact@ntvx-studio.dev" class="footer__contact">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="4" width="20" height="16" rx="2"/>
               <path d="M22 7l-10 6L2 7"/>
             </svg>
-            Email
+            contact@ntvx-studio.dev
           </a>
-          <a href="https://instagram.com/YOUR_INSTAGRAM" target="_blank" rel="noopener noreferrer" class="footer__contact">
+          <a href="https://instagram.com/ntvx31" target="_blank" rel="noopener noreferrer" class="footer__contact">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="2" width="20" height="20" rx="5"/>
               <circle cx="12" cy="12" r="5"/>
               <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
             </svg>
-            Instagram
+            Instagram: @ntvx31
           </a>
         </div>
       </div>
@@ -1545,7 +1520,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
   // ═══ CONFIG ═══
   var API_ENDPOINT = '/api/lead';
-  var TG_USERNAME = 'YOUR_TELEGRAM';
+  var TG_USERNAME = 'ntvx31';
 
   // ═══ HEADER SCROLL ═══
   var header = document.getElementById('header');
