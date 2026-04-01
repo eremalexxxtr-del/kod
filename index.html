@@ -3,39 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Кастомні лендинги — Розробка з нуля | Pagespeed 100/100</title>
-<meta name="description" content="Ручна розробка лендінгів з нуля. Чистий HTML, CSS, JavaScript. Pagespeed 100/100. Без конструкторів та шаблонів. Від 1500 грн.">
+<title>NTVX — Преміальні лендинги та Telegram lead-flow</title>
+<meta name="description" content="NTVX створює кастомні лендинги без шаблонів: преміальний дизайн, чистий код, швидкість завантаження та надійна доставка лідів у Telegram.">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="Кастомні лендинги — Розробка з нуля">
-<meta property="og:description" content="Лендинги, що генерують прибуток. Ручна розробка, максимальна швидкість.">
+<meta property="og:title" content="NTVX — Преміальні лендинги та Telegram lead-flow">
+<meta property="og:description" content="Лендінги, які виглядають дорого, працюють швидко й не гублять заявки.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="uk_UA">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 /* ═══════════════════════════════════════════
    CSS VARIABLES
    ═══════════════════════════════════════════ */
 :root {
-  --color-bg: #FFFFFF;
-  --color-bg-alt: #F8F9FA;
-  --color-bg-alt-2: #F1F3F5;
-  --color-text: #161616;
-  --color-text-secondary: #6C757D;
-  --color-text-muted: #ADB5BD;
-  --color-accent: #2563EB;
-  --color-accent-hover: #1D4ED8;
-  --color-accent-light: rgba(37, 99, 235, 0.08);
-  --color-border: #E9ECEF;
-  --color-border-light: #F1F3F5;
-  --color-black: #0F0F0F;
-  --color-white: #FFFFFF;
-  --color-success: #16A34A;
-  --color-error: #DC2626;
+  --color-bg: #F4EFE7;
+  --color-bg-alt: #FBF7F1;
+  --color-bg-alt-2: #F2EADF;
+  --color-text: #141719;
+  --color-text-secondary: #5B6366;
+  --color-text-muted: #8A9194;
+  --color-accent: #0EA5A4;
+  --color-accent-hover: #0B7F7D;
+  --color-accent-light: rgba(14, 165, 164, 0.12);
+  --color-border: rgba(20, 23, 25, 0.12);
+  --color-border-light: rgba(20, 23, 25, 0.08);
+  --color-black: #101617;
+  --color-white: #FFFDF9;
+  --color-success: #15803D;
+  --color-error: #B42318;
 
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Sora', 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -52,10 +53,10 @@
   --radius-lg: 16px;
   --radius-xl: 24px;
 
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
-  --shadow-lg: 0 12px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
-  --shadow-xl: 0 20px 60px rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.04);
+  --shadow-sm: 0 10px 28px rgba(16,22,23,0.06), 0 2px 8px rgba(16,22,23,0.04);
+  --shadow-md: 0 18px 48px rgba(16,22,23,0.08), 0 4px 16px rgba(16,22,23,0.05);
+  --shadow-lg: 0 28px 72px rgba(16,22,23,0.12), 0 8px 24px rgba(16,22,23,0.06);
+  --shadow-xl: 0 34px 96px rgba(16,22,23,0.16), 0 12px 32px rgba(16,22,23,0.08);
 
   --transition: 0.3s ease;
   --transition-fast: 0.15s ease;
@@ -85,6 +86,10 @@ body {
   font-size: 16px;
   line-height: 1.6;
   color: var(--color-text);
+  background:
+    radial-gradient(circle at top left, rgba(14,165,164,0.16), transparent 24%),
+    radial-gradient(circle at 85% 16%, rgba(184,98,44,0.10), transparent 18%),
+    linear-gradient(180deg, #F6F0E8 0%, var(--color-bg) 45%, #EFE8DE 100%);
   background-color: var(--color-bg);
   overflow-x: hidden;
 }
@@ -131,10 +136,11 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 }
 
 .section-title {
+  font-family: var(--font-display);
   font-size: clamp(32px, 5vw, 56px);
   font-weight: var(--font-weight-bold);
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.04em;
   color: var(--color-text);
   margin-bottom: 20px;
 }
@@ -165,20 +171,19 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 }
 
 .btn-primary {
-  background-color: var(--color-accent);
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
   color: var(--color-white);
-  box-shadow: 0 1px 3px rgba(37,99,235,0.3), 0 4px 12px rgba(37,99,235,0.15);
+  box-shadow: 0 12px 28px rgba(14,165,164,0.22), 0 4px 12px rgba(14,165,164,0.12);
 }
 
 .btn-primary:hover {
-  background-color: var(--color-accent-hover);
-  box-shadow: 0 2px 6px rgba(37,99,235,0.35), 0 8px 24px rgba(37,99,235,0.2);
+  box-shadow: 0 18px 36px rgba(14,165,164,0.28), 0 8px 20px rgba(14,165,164,0.16);
   transform: translateY(-1px);
 }
 
 .btn-primary:active {
   transform: translateY(0);
-  box-shadow: 0 1px 3px rgba(37,99,235,0.3);
+  box-shadow: 0 8px 18px rgba(14,165,164,0.18);
 }
 
 .btn-primary:disabled {
@@ -235,7 +240,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   height: var(--header-height);
   display: flex;
   align-items: center;
-  background-color: rgba(255,255,255,0.0);
+  background-color: rgba(255,253,249,0.0);
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
   transition: all var(--transition);
@@ -243,11 +248,11 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 }
 
 .header.scrolled {
-  background-color: rgba(255,255,255,0.85);
+  background-color: rgba(255,253,249,0.82);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom-color: var(--color-border-light);
-  box-shadow: 0 1px 8px rgba(0,0,0,0.03);
+  box-shadow: 0 8px 28px rgba(16,22,23,0.06);
 }
 
 .header__inner {
@@ -261,15 +266,24 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 }
 
 .header__logo {
-  font-size: 20px;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: -0.03em;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
   color: var(--color-text);
   flex-shrink: 0;
 }
 
+.header__logo img {
+  width: clamp(104px, 12vw, 140px);
+  height: auto;
+}
+
 .header__logo span {
-  color: var(--color-accent);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
 }
 
 .header__nav {
@@ -399,6 +413,12 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   max-width: 780px;
 }
 
+.hero__logo {
+  width: clamp(240px, 34vw, 420px);
+  height: auto;
+  margin-top: -8px;
+}
+
 .hero__badge {
   display: inline-flex;
   align-items: center;
@@ -427,11 +447,13 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 }
 
 .hero__title {
+  font-family: var(--font-display);
   font-size: clamp(40px, 7vw, 72px);
   font-weight: var(--font-weight-extrabold);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
   color: var(--color-text);
+  max-width: 10ch;
 }
 
 .hero__title em {
@@ -443,7 +465,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   font-size: clamp(16px, 2.5vw, 20px);
   color: var(--color-text-secondary);
   line-height: 1.7;
-  max-width: 520px;
+  max-width: 620px;
 }
 
 .hero__actions {
@@ -454,8 +476,17 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 }
 
 .hero__note {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-sm);
   font-size: 13px;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   margin-top: -8px;
 }
 
@@ -912,7 +943,8 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
 /* Form states */
 .form-success,
-.form-error-state {
+.form-error-state,
+.form-fallback-state {
   display: none;
   flex-direction: column;
   align-items: center;
@@ -922,7 +954,8 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 }
 
 .form-success.active,
-.form-error-state.active {
+.form-error-state.active,
+.form-fallback-state.active {
   display: flex;
 }
 
@@ -946,6 +979,11 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   color: var(--color-error);
 }
 
+.form-state-icon--fallback {
+  background-color: rgba(184,98,44,0.10);
+  color: #B8622C;
+}
+
 .form-state-title {
   font-size: 24px;
   font-weight: var(--font-weight-bold);
@@ -957,6 +995,28 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   font-size: 15px;
   color: var(--color-text-secondary);
   line-height: 1.7;
+}
+
+.form-state-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.form-fallback-box {
+  width: 100%;
+  max-width: 520px;
+  min-height: 150px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.72);
+  color: var(--color-text);
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
 }
 
 /* ═══════════════════════════════════════════
@@ -980,14 +1040,23 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 }
 
 .footer__brand {
-  font-size: 20px;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: -0.03em;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
   color: var(--color-text);
 }
 
+.footer__brand img {
+  width: 132px;
+  height: auto;
+}
+
 .footer__brand span {
-  color: var(--color-accent);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
 }
 
 .footer__tagline {
@@ -1111,7 +1180,10 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
 <header class="header" id="header">
   <div class="header__inner">
-    <a href="#" class="header__logo">ko<span>.</span>d</a>
+    <a href="#" class="header__logo">
+      <img src="assets/brand/ntvx-logo.png" alt="NTVX">
+      <span>landing studio</span>
+    </a>
 
     <nav class="header__nav" aria-label="Основна навігація">
       <a href="#process" class="header__nav-link">Процес</a>
@@ -1146,21 +1218,23 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
       <div class="hero__badge reveal">
         <span class="hero__badge-dot"></span>
-        Приймаю замовлення
+        NTVX / приймаю нові проєкти
       </div>
 
-      <h1 class="hero__title reveal reveal-delay-1">
-        Створюю лендинги,<br>
-        що генерують <em>прибуток</em>
+      <img class="hero__logo reveal reveal-delay-1" src="assets/brand/ntvx-logo.png" alt="NTVX">
+
+      <h1 class="hero__title reveal reveal-delay-2">
+        Лендінги, які виглядають <em>дорого</em><br>
+        і не гублять заявки
       </h1>
 
-      <p class="hero__subtitle reveal reveal-delay-2">
-        Кастомна розробка з нуля. Швидкість завантаження
-        менше 0.5 секунди. Без конструкторів та шаблонів.
-        Кожен піксель — вручну.
+      <p class="hero__subtitle reveal reveal-delay-3">
+        Преміальний візуал, ручна HTML/CSS/JS-розробка, швидка
+        сторінка та lead-flow у Telegram, якому можна довірити трафік.
+        Без шаблонів, конструкторів і фальшивих success-state.
       </p>
 
-      <div class="hero__actions reveal reveal-delay-3">
+      <div class="hero__actions reveal reveal-delay-4">
         <a href="#contact" class="btn btn-primary">
           Обговорити проєкт
           <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1171,7 +1245,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
       </div>
 
       <p class="hero__note reveal reveal-delay-4">
-        Безкоштовна консультація · Відповідь протягом 2 годин
+        Безкоштовна консультація · Відповідь протягом 2 годин · Telegram lead delivery
       </p>
 
     </div>
@@ -1355,7 +1429,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
             <span class="pricing-card__feature-icon pricing-card__feature-icon--bot">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </span>
-            Захист від спаму (валідація на фронтенді)
+            Захист від спаму та валідація на фронтенді й бекенді
           </li>
           <li class="pricing-card__feature">
             <span class="pricing-card__feature-icon pricing-card__feature-icon--bot">
@@ -1383,7 +1457,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
         <h2 class="section-title reveal reveal-delay-1" style="margin-left:auto;margin-right:auto;">Обговоримо<br>ваш проєкт?</h2>
         <p class="section-subtitle reveal reveal-delay-2">
           Залиште заявку — я зв'яжуся протягом 2 годин.
-          Безкоштовна консультація, без зобов'язань.
+          Безкоштовна консультація, без зобов'язань і без втрати лідів при збої API.
         </p>
       </div>
 
@@ -1408,6 +1482,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
             <input type="text" id="f-msg" name="message" class="form-input"
                    placeholder=" ">
             <label class="form-label" for="f-msg">Опишіть ваш проєкт (необов'язково)</label>
+            <div class="form-error" id="f-msg-error"></div>
           </div>
 
           <label class="form-checkbox">
@@ -1416,6 +1491,9 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
               Потрібен <strong>Telegram-бот</strong> для автоматичної обробки лідів (+500 грн)
             </span>
           </label>
+
+          <input type="text" id="f-website" name="website" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;">
+          <input type="hidden" id="f-started-at" name="started_at" value="">
 
           <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%;padding:18px 24px;">
             <span id="btn-text">Надіслати заявку</span>
@@ -1433,13 +1511,33 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
             </svg>
           </div>
           <h3 class="form-state-title">Заявку надіслано!</h3>
-          <p class="form-state-text">Я зв'яжуся з вами протягом 2 годин.</p>
+          <p class="form-state-text">Лід успішно доставлено. Я зв'яжуся з вами протягом 2 годин.</p>
+          <p class="form-state-text" id="lead-id-text" style="font-size:13px;">ID заявки: —</p>
           
           <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--color-border-light);">
             <p style="font-size: 13px; color: var(--color-text); margin-bottom: 12px;">🎁 Отримайте бриф та прайс-лист миттєво у нашому боті:</p>
-            <a href="https://t.me/DevCraft_Helper_Bot" target="_blank" class="btn btn-primary" style="padding: 12px 20px; font-size: 13px; width: auto;">
-               Відкрити Telegram-бот
+            <a href="https://t.me/ntvx31" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 12px 20px; font-size: 13px; width: auto;">
+               Відкрити Telegram
             </a>
+          </div>
+        </div>
+
+        <div class="form-fallback-state" id="form-fallback">
+          <div class="form-state-icon form-state-icon--fallback">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 8v4l3 3"/>
+              <circle cx="12" cy="12" r="9"/>
+            </svg>
+          </div>
+          <h3 class="form-state-title">Сервер тимчасово не відповів</h3>
+          <p class="form-state-text" id="fallback-text">
+            Щоб не втратити заявку, нижче вже підготовлений текст для відправки в Telegram.
+          </p>
+          <textarea class="form-fallback-box" id="fallback-message" readonly></textarea>
+          <div class="form-state-actions">
+            <a href="https://t.me/ntvx31" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="fallback-link">Відкрити Telegram</a>
+            <button type="button" class="btn btn-secondary" id="fallback-copy">Скопіювати текст</button>
+            <button type="button" class="btn btn-secondary" id="fallback-back">Повернутись до форми</button>
           </div>
         </div>
 
@@ -1450,10 +1548,13 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
             </svg>
           </div>
           <h3 class="form-state-title">Щось пішло не так</h3>
-          <p class="form-state-text">
+          <p class="form-state-text" id="form-error-text">
             Спробуйте ще раз або напишіть мені в
             <a href="https://t.me/ntvx31" style="color:var(--color-accent);font-weight:600;">Telegram</a>.
           </p>
+          <div class="form-state-actions">
+            <button type="button" class="btn btn-secondary" id="error-back">Спробувати ще раз</button>
+          </div>
         </div>
 
       </div>
@@ -1469,10 +1570,13 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
       <div class="footer__top">
         <div>
-          <div class="footer__brand">ko<span>.</span>d</div>
+          <div class="footer__brand">
+            <img src="assets/brand/ntvx-logo.png" alt="NTVX">
+            <span>landing studio</span>
+          </div>
           <p class="footer__tagline">
-            Кастомна розробка лендінгів з нуля.<br>
-            Чистий код, максимальна швидкість.
+            Преміальні кастомні лендинги з нуля.<br>
+            Чистий код, сильний візуал, надійний lead-flow.
           </p>
         </div>
 
@@ -1503,11 +1607,11 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
       <div class="footer__bottom">
         <div class="footer__links">
-          <a href="#" class="footer__link">Політика конфіденційності</a>
-          <a href="#" class="footer__link">Умови використання</a>
-          <a href="#" class="footer__link">Cookies</a>
+          <a href="#contact" class="footer__link">Політика конфіденційності</a>
+          <a href="#contact" class="footer__link">Умови використання</a>
+          <a href="#contact" class="footer__link">Cookies</a>
         </div>
-        <div class="footer__copy">© 2026 ko.d. Всі права захищені.</div>
+        <div class="footer__copy">© 2026 NTVX. Всі права захищені.</div>
       </div>
 
     </div>
@@ -1518,116 +1622,158 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 (function() {
   'use strict';
 
-  // ═══ CONFIG ═══
   var API_ENDPOINT = '/api/lead';
   var TG_USERNAME = 'ntvx31';
+  var API_TIMEOUT_MS = 10000;
 
-  // ═══ HEADER SCROLL ═══
   var header = document.getElementById('header');
-  var lastScroll = 0;
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobile-menu');
+  var mobileLinks = mobileMenu.querySelectorAll('a');
+  var revealEls = document.querySelectorAll('.reveal');
+
+  var form = document.getElementById('lead-form');
+  var nameInput = document.getElementById('f-name');
+  var phoneInput = document.getElementById('f-phone');
+  var messageInput = document.getElementById('f-msg');
+  var botInput = document.getElementById('f-bot');
+  var honeypotInput = document.getElementById('f-website');
+  var startedAtInput = document.getElementById('f-started-at');
+  var submitBtn = document.getElementById('submit-btn');
+  var btnText = document.getElementById('btn-text');
+  var btnIcon = document.getElementById('btn-icon');
+  var btnSpinner = document.getElementById('btn-spinner');
+
+  var formSuccess = document.getElementById('form-success');
+  var formFallback = document.getElementById('form-fallback');
+  var formError = document.getElementById('form-error');
+  var leadIdText = document.getElementById('lead-id-text');
+  var fallbackText = document.getElementById('fallback-text');
+  var fallbackMessage = document.getElementById('fallback-message');
+  var fallbackLink = document.getElementById('fallback-link');
+  var fallbackCopy = document.getElementById('fallback-copy');
+  var fallbackBack = document.getElementById('fallback-back');
+  var errorBack = document.getElementById('error-back');
+  var formErrorText = document.getElementById('form-error-text');
+
+  var startedAt = Date.now();
+  var preparedFallback = '';
 
   function onScroll() {
     var y = window.scrollY;
-    if (y > 40) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-    lastScroll = y;
+    if (y > 40) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    burger.classList.remove('active');
+    burger.setAttribute('aria-expanded', 'false');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    burger.classList.add('active');
+    burger.setAttribute('aria-expanded', 'true');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // ═══ BURGER MENU ═══
-  var burger = document.getElementById('burger');
-  var mobileMenu = document.getElementById('mobile-menu');
-  var mobileLinks = mobileMenu.querySelectorAll('a');
-
   burger.addEventListener('click', function() {
-    var isOpen = mobileMenu.classList.toggle('open');
-    burger.classList.toggle('active');
-    burger.setAttribute('aria-expanded', isOpen);
-    mobileMenu.setAttribute('aria-hidden', !isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (mobileMenu.classList.contains('open')) closeMenu();
+    else openMenu();
   });
 
   for (var i = 0; i < mobileLinks.length; i++) {
-    mobileLinks[i].addEventListener('click', function() {
-      mobileMenu.classList.remove('open');
-      burger.classList.remove('active');
-      burger.setAttribute('aria-expanded', 'false');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    });
+    mobileLinks[i].addEventListener('click', closeMenu);
   }
 
-  // ═══ INTERSECTION OBSERVER — REVEAL ═══
-  var revealEls = document.querySelectorAll('.reveal');
-  var revealObserver = new IntersectionObserver(function(entries) {
-    for (var i = 0; i < entries.length; i++) {
-      if (entries[i].isIntersecting) {
-        entries[i].target.classList.add('visible');
-        revealObserver.unobserve(entries[i].target);
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function(entries) {
+      for (var r = 0; r < entries.length; r++) {
+        if (entries[r].isIntersecting) {
+          entries[r].target.classList.add('visible');
+          revealObserver.unobserve(entries[r].target);
+        }
       }
-    }
-  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
-  for (var j = 0; j < revealEls.length; j++) {
-    revealObserver.observe(revealEls[j]);
+    for (var j = 0; j < revealEls.length; j++) {
+      revealObserver.observe(revealEls[j]);
+    }
+  } else {
+    for (var k = 0; k < revealEls.length; k++) {
+      revealEls[k].classList.add('visible');
+    }
   }
 
-  // ═══ FORM VALIDATION ═══
-  var form = document.getElementById('lead-form');
-  var nameInput = document.getElementById('f-name');
-  var phoneInput = document.getElementById('f-phone');
-  var submitBtn = document.getElementById('submit-btn');
-  var btnText = document.getElementById('btn-text');
-  var btnIcon = document.getElementById('btn-icon');
-  var btnSpinner = document.getElementById('btn-spinner');
-  var formSuccess = document.getElementById('form-success');
-  var formError = document.getElementById('form-error');
-
-  function showError(id, msg) {
+  function showFieldError(id, msg) {
     var el = document.getElementById(id);
     el.textContent = msg;
     el.classList.add('visible');
   }
-  function hideError(id) {
+
+  function hideFieldError(id) {
     document.getElementById(id).classList.remove('visible');
   }
 
+  function resetFieldState(input, errorId) {
+    input.classList.remove('invalid');
+    input.classList.remove('valid');
+    hideFieldError(errorId);
+  }
+
   function validateName(val) {
-    if (!val.trim()) return 'Обов\'язкове поле';
-    if (val.trim().length < 2) return 'Мінімум 2 символи';
+    var clean = val.trim();
+    if (!clean) return 'Вкажіть ім\'я';
+    if (clean.length < 2) return 'Мінімум 2 символи';
+    if (clean.length > 80) return 'Максимум 80 символів';
     return '';
   }
 
-  function validatePhone(val) {
-    var c = val.replace(/\s/g, '');
-    if (!c) return 'Обов\'язкове поле';
-    if (c.startsWith('@') && c.length < 5) return 'Вкажіть повний @username';
-    if (!c.startsWith('@') && c.length < 9) return 'Короткий номер';
+  function validateContact(val) {
+    var clean = val.replace(/\s/g, '');
+    if (!clean) return 'Вкажіть контакт';
+    if (clean.charAt(0) === '@') {
+      if (!/^@[A-Za-z0-9_]{4,32}$/.test(clean)) return 'Telegram має бути у форматі @username';
+      return '';
+    }
+    var digits = clean.replace(/\D/g, '');
+    if (digits.length < 9 || digits.length > 15) return 'Вкажіть коректний номер';
     return '';
+  }
+
+  function validateMessage(val) {
+    if (val.trim().length > 1200) return 'Опис занадто довгий';
+    return '';
+  }
+
+  function markField(input, errorId, validator) {
+    var error = validator(input.value);
+    input.classList.toggle('valid', !error && input.value.length > 0);
+    input.classList.toggle('invalid', !!error && input.value.length > 0);
+    if (error && input.value.length > 0) showFieldError(errorId, error);
+    else hideFieldError(errorId);
+    return error;
   }
 
   nameInput.addEventListener('input', function() {
-    var err = validateName(nameInput.value);
-    nameInput.classList.toggle('valid', !err && nameInput.value.length > 0);
-    nameInput.classList.toggle('invalid', !!err && nameInput.value.length > 0);
-    if (err && nameInput.value.length > 0) showError('f-name-error', err);
-    else hideError('f-name-error');
+    markField(nameInput, 'f-name-error', validateName);
   });
 
   phoneInput.addEventListener('input', function() {
-    var err = validatePhone(phoneInput.value);
-    phoneInput.classList.toggle('valid', !err && phoneInput.value.length > 0);
-    phoneInput.classList.toggle('invalid', !!err && phoneInput.value.length > 0);
-    if (err && phoneInput.value.length > 0) showError('f-phone-error', err);
-    else hideError('f-phone-error');
+    markField(phoneInput, 'f-phone-error', validateContact);
   });
 
-  // ═══ FORM SUBMIT — ASYNC ═══
+  messageInput.addEventListener('input', function() {
+    markField(messageInput, 'f-msg-error', validateMessage);
+  });
+
   function setLoading(on) {
     submitBtn.disabled = on;
     btnText.textContent = on ? 'Надсилаємо...' : 'Надіслати заявку';
@@ -1635,72 +1781,209 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
     btnSpinner.style.display = on ? '' : 'none';
   }
 
+  function setStartedAt() {
+    startedAt = Date.now();
+    startedAtInput.value = String(startedAt);
+  }
+
+  function clearAllFieldErrors() {
+    resetFieldState(nameInput, 'f-name-error');
+    resetFieldState(phoneInput, 'f-phone-error');
+    resetFieldState(messageInput, 'f-msg-error');
+  }
+
+  function resetStates() {
+    form.style.display = '';
+    formSuccess.classList.remove('active');
+    formFallback.classList.remove('active');
+    formError.classList.remove('active');
+  }
+
+  function showSuccess(leadId) {
+    form.style.display = 'none';
+    formSuccess.classList.add('active');
+    formFallback.classList.remove('active');
+    formError.classList.remove('active');
+    leadIdText.textContent = 'ID заявки: ' + (leadId || '—');
+  }
+
+  function showFallback(payload, message) {
+    var lines = [
+      'Новий запит з лендінгу NTVX',
+      '',
+      "Ім'я: " + payload.name,
+      'Контакт: ' + payload.contact,
+      'Потрібен бот: ' + (payload.need_bot ? 'Так' : 'Ні')
+    ];
+    if (payload.message) lines.push('Проєкт: ' + payload.message);
+    preparedFallback = lines.join('\n');
+
+    form.style.display = 'none';
+    formSuccess.classList.remove('active');
+    formError.classList.remove('active');
+    formFallback.classList.add('active');
+    fallbackText.textContent = message || 'Щоб не втратити заявку, нижче вже підготовлений текст для відправки в Telegram.';
+    fallbackMessage.value = preparedFallback;
+    fallbackLink.href = 'https://t.me/' + TG_USERNAME + '?text=' + encodeURIComponent(preparedFallback);
+  }
+
+  function showSystemError(message) {
+    form.style.display = 'none';
+    formSuccess.classList.remove('active');
+    formFallback.classList.remove('active');
+    formError.classList.add('active');
+    formErrorText.innerHTML = message;
+  }
+
+  function collectPayload() {
+    return {
+      name: nameInput.value.trim(),
+      contact: phoneInput.value.trim(),
+      message: messageInput.value.trim(),
+      need_bot: botInput.checked,
+      website: honeypotInput.value.trim(),
+      started_at: startedAtInput.value,
+      submitted_at: new Date().toISOString(),
+      source: 'ntvx-landing'
+    };
+  }
+
+  function resetForm() {
+    form.reset();
+    resetFieldState(nameInput, 'f-name-error');
+    resetFieldState(phoneInput, 'f-phone-error');
+    resetFieldState(messageInput, 'f-msg-error');
+    resetStates();
+    setStartedAt();
+    nameInput.focus();
+  }
+
+  function requestWithTimeout(url, options, timeoutMs) {
+    return new Promise(function(resolve, reject) {
+      var done = false;
+      var timer = setTimeout(function() {
+        if (!done) {
+          done = true;
+          reject(new Error('Сервер не відповів вчасно. Можна відправити готовий текст напряму в Telegram.'));
+        }
+      }, timeoutMs);
+
+      fetch(url, options).then(function(response) {
+        if (done) return;
+        done = true;
+        clearTimeout(timer);
+        resolve(response);
+      }).catch(function(error) {
+        if (done) return;
+        done = true;
+        clearTimeout(timer);
+        reject(error);
+      });
+    });
+  }
+
   form.addEventListener('submit', function(e) {
     e.preventDefault();
+    resetStates();
+    clearAllFieldErrors();
 
     var nameErr = validateName(nameInput.value);
-    var phoneErr = validatePhone(phoneInput.value);
+    var phoneErr = validateContact(phoneInput.value);
+    var messageErr = validateMessage(messageInput.value);
 
     if (nameErr) {
       nameInput.classList.add('invalid');
-      showError('f-name-error', nameErr);
+      showFieldError('f-name-error', nameErr);
       nameInput.focus();
       return;
     }
     if (phoneErr) {
       phoneInput.classList.add('invalid');
-      showError('f-phone-error', phoneErr);
+      showFieldError('f-phone-error', phoneErr);
       phoneInput.focus();
       return;
     }
+    if (messageErr) {
+      messageInput.classList.add('invalid');
+      showFieldError('f-msg-error', messageErr);
+      messageInput.focus();
+      return;
+    }
 
-    var payload = {
-      name: nameInput.value.trim(),
-      contact: phoneInput.value.trim(),
-      message: document.getElementById('f-msg').value.trim(),
-      need_bot: document.getElementById('f-bot').checked
-    };
-
+    var payload = collectPayload();
     setLoading(true);
 
-    // Try backend first, fallback to TG
-    fetch(API_ENDPOINT, {
+    requestWithTimeout(API_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    })
+    }, API_TIMEOUT_MS)
     .then(function(res) {
-      if (res.ok) {
-        showSuccess();
-      } else {
-        return Promise.reject(new Error(res.status));
-      }
+      return res.json().catch(function() { return {}; }).then(function(data) {
+        if (!res.ok) {
+          var err = new Error(data.error || 'Request failed');
+          err.status = res.status;
+          err.data = data;
+          throw err;
+        }
+        return data;
+      });
     })
-    .catch(function() {
-      // Fallback: open Telegram
-      var lines = [
-        'Нова заявка з лендінгу!',
-        '',
-        "Ім'я: " + payload.name,
-        'Контакт: ' + payload.contact
-      ];
-      if (payload.message) lines.push('Проєкт: ' + payload.message);
-      if (payload.need_bot) lines.push('TG-бот: ТАК');
+    .then(function(data) {
+      form.reset();
+      showSuccess(data.leadId);
+      setStartedAt();
+    })
+    .catch(function(error) {
+      if (error.status === 422 && error.data && error.data.fields) {
+        if (error.data.fields.name) {
+          nameInput.classList.add('invalid');
+          showFieldError('f-name-error', error.data.fields.name);
+        }
+        if (error.data.fields.contact) {
+          phoneInput.classList.add('invalid');
+          showFieldError('f-phone-error', error.data.fields.contact);
+        }
+        if (error.data.fields.name) nameInput.focus();
+        else if (error.data.fields.contact) phoneInput.focus();
+        return;
+      }
 
-      var tgText = encodeURIComponent(lines.join('\n'));
-      window.open('https://t.me/' + TG_USERNAME + '?text=' + tgText, '_blank');
-      showSuccess();
+      if (!error.status || error.status >= 500) {
+        showFallback(payload, error.message);
+        return;
+      }
+
+      showSystemError('Спробуйте ще раз або напишіть мені в <a href="https://t.me/ntvx31" style="color:var(--color-accent);font-weight:600;">Telegram</a>.');
     })
     .finally(function() {
       setLoading(false);
     });
   });
 
-  function showSuccess() {
-    form.style.display = 'none';
-    formSuccess.classList.add('active');
-    formError.classList.remove('active');
-  }
+  fallbackCopy.addEventListener('click', function() {
+    if (!preparedFallback) return;
+    var original = fallbackCopy.textContent;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(preparedFallback).then(function() {
+        fallbackCopy.textContent = 'Скопійовано';
+        setTimeout(function() { fallbackCopy.textContent = original; }, 1400);
+      });
+      return;
+    }
+
+    fallbackMessage.focus();
+    fallbackMessage.select();
+    document.execCommand('copy');
+    fallbackCopy.textContent = 'Скопійовано';
+    setTimeout(function() { fallbackCopy.textContent = original; }, 1400);
+  });
+
+  fallbackBack.addEventListener('click', resetForm);
+  errorBack.addEventListener('click', resetForm);
+
+  setStartedAt();
 
 })();
 </script>

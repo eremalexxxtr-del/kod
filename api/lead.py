@@ -1,69 +1,155 @@
-import os
+import html
 import json
-import requests
+import os
+import uuid
 from http.server import BaseHTTPRequestHandler
 
+import requests
+
+
+PHONE_MIN_DIGITS = 9
+PHONE_MAX_DIGITS = 15
+NAME_MAX_LENGTH = 80
+MESSAGE_MAX_LENGTH = 1200
+REQUEST_TIMEOUT_SECONDS = 10
+
+
+def _clean(value):
+    return str(value or "").strip()
+
+
+def _escape(value):
+    return html.escape(_clean(value), quote=False)
+
+
+def _normalize_multiline(value):
+    return _escape(value).replace("\r\n", "\n").replace("\r", "\n")
+
+
+def _is_valid_contact(value):
+    if value.startswith("@"):
+        username = value[1:]
+        if len(username) < 4 or len(username) > 32:
+            return False
+        return all(char.isalnum() or char == "_" for char in username)
+
+    digits = "".join(char for char in value if char.isdigit())
+    return PHONE_MIN_DIGITS <= len(digits) <= PHONE_MAX_DIGITS
+
+
 class handler(BaseHTTPRequestHandler):
+    def do_OPTIONS(self):
+        self._send_response(204)
+
     def do_POST(self):
-        # Получаем размер тела запроса
-        content_length = int(self.headers.get('Content-Length', 0))
-        post_data = self.rfile.read(content_length)
-        
         try:
-            data = json.loads(post_data.decode('utf-8'))
-        except json.JSONDecodeError:
-            self._send_response(400, {"error": "Invalid JSON"})
+            payload = self._load_payload()
+        except ValueError as error:
+            self._send_response(400, {"error": str(error)})
             return
 
-        # Достаем данные из payload твоего JS
-        name = data.get('name', 'Не вказано')
-        contact = data.get('contact', 'Не вказано')
-        message_text = data.get('message', '')
-        need_bot = "ТАК (+500 грн) 🤖" if data.get('need_bot') else "Ні"
+        if _clean(payload.get("website")):
+            self._send_response(200, {"status": "ignored"})
+            return
 
-        # Токены из переменных окружения Vercel
-        token = os.environ.get('TELEGRAM_BOT_TOKEN')
-        chat_id = os.environ.get('TELEGRAM_CHAT_ID')
+        field_errors = self._validate(payload)
+        if field_errors:
+            self._send_response(422, {"error": "Validation failed.", "fields": field_errors})
+            return
 
+        token = _clean(os.environ.get("TELEGRAM_BOT_TOKEN"))
+        chat_id = _clean(os.environ.get("TELEGRAM_CHAT_ID"))
         if not token or not chat_id:
-            self._send_response(500, {"error": "Server config error"})
+            self._send_response(500, {"error": "Server config error."})
             return
 
-        # Формируем красивое сообщение для Telegram
-        tg_msg = (
-            f"🔥 <b>НОВА ЗАЯВКА | ko.d</b> 🔥\n\n"
-            f"👤 <b>Ім'я:</b> {name}\n"
-            f"📞 <b>Контакт:</b> {contact}\n"
-            f"🛠 <b>Потрібен бот:</b> {need_bot}\n"
-        )
-        
-        if message_text:
-            tg_msg += f"📝 <b>Проєкт:</b> {message_text}\n"
-            
-        tg_msg += f"\n🌐 <i>Джерело: Vercel Backend</i>"
-
-        # Запрос к Telegram API
-        url = f"https://api.telegram.org/bot{token}/sendMessage"
-        payload = {
+        lead_id = uuid.uuid4().hex[:10].upper()
+        telegram_url = f"https://api.telegram.org/bot{token}/sendMessage"
+        telegram_payload = {
             "chat_id": chat_id,
-            "text": tg_msg,
-            "parse_mode": "html"
+            "text": self._build_message(payload, lead_id),
+            "parse_mode": "HTML",
+            "disable_web_page_preview": True,
         }
 
         try:
-            r = requests.post(url, json=payload)
-            if r.status_code == 200:
-                self._send_response(200, {"status": "success"})
-            else:
-                self._send_response(502, {"error": "Telegram API Error"})
-        except Exception as e:
-            self._send_response(500, {"error": str(e)})
+            response = requests.post(
+                telegram_url,
+                json=telegram_payload,
+                timeout=REQUEST_TIMEOUT_SECONDS,
+            )
+        except requests.RequestException:
+            self._send_response(502, {"error": "Lead delivery failed.", "leadId": lead_id})
+            return
 
-    # Вспомогательный метод для отправки HTTP-ответов
-    def _send_response(self, status_code, json_body):
+        if response.ok:
+            self._send_response(200, {"status": "success", "leadId": lead_id})
+            return
+
+        self._send_response(502, {"error": "Telegram API error.", "leadId": lead_id})
+
+    def _load_payload(self):
+        content_length = int(self.headers.get("Content-Length", "0") or "0")
+        if content_length <= 0:
+            raise ValueError("Empty request body.")
+
+        raw_body = self.rfile.read(content_length)
+        try:
+            return json.loads(raw_body.decode("utf-8"))
+        except json.JSONDecodeError as error:
+            raise ValueError("Invalid JSON payload.") from error
+
+    def _validate(self, payload):
+        name = _clean(payload.get("name"))
+        contact = _clean(payload.get("contact"))
+        message = _clean(payload.get("message"))
+
+        errors = {}
+
+        if len(name) < 2:
+            errors["name"] = "Вкажіть ім'я довжиною від 2 символів."
+        elif len(name) > NAME_MAX_LENGTH:
+            errors["name"] = "Ім'я не може бути довшим за 80 символів."
+
+        if not contact:
+            errors["contact"] = "Вкажіть телефон або Telegram."
+        elif not _is_valid_contact(contact):
+            errors["contact"] = "Вкажіть коректний телефон або Telegram username."
+
+        if len(message) > MESSAGE_MAX_LENGTH:
+            errors["message"] = "Опис задачі занадто довгий."
+
+        return errors
+
+    def _build_message(self, payload, lead_id):
+        lines = [
+            "🔥 <b>НОВИЙ ЛІД | NTVX</b>",
+            "",
+            f"🆔 <b>ID:</b> <code>{lead_id}</code>",
+            f"👤 <b>Ім'я:</b> {_escape(payload.get('name'))}",
+            f"📞 <b>Контакт:</b> {_escape(payload.get('contact'))}",
+            f"🤖 <b>Потрібен бот:</b> {'Так' if payload.get('need_bot') else 'Ні'}",
+            f"🏷 <b>Джерело:</b> {_escape(payload.get('source') or 'landing')}",
+        ]
+
+        submitted_at = _escape(payload.get("submitted_at"))
+        if submitted_at:
+            lines.append(f"🕒 <b>Надіслано:</b> {submitted_at}")
+
+        message = _normalize_multiline(payload.get("message"))
+        if message:
+            lines.extend(["", "📝 <b>Запит:</b>", message])
+
+        return "\n".join(lines)
+
+    def _send_response(self, status_code, payload=None):
         self.send_response(status_code)
-        self.send_header('Content-type', 'application/json')
-        # Разрешаем CORS (чтобы браузер не блокировал запросы)
-        self.send_header('Access-Control-Allow-Origin', '*') 
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
-        self.wfile.write(json.dumps(json_body).encode('utf-8'))
+
+        if payload is not None and status_code != 204:
+            self.wfile.write(json.dumps(payload).encode("utf-8"))
