@@ -17,11 +17,22 @@ const services = [
   "Швидка розробка (Next.js)",
 ];
 
+const portfolioMetrics = [
+  { value: "4", label: "live кейси" },
+  { value: "3", label: "типи задач" },
+  { value: "Next.js", label: "основний стек" },
+];
+
 const projects = [
   {
     title: "WoodMaster",
     niche: "Преміальні меблі з масиву дерева",
     url: "https://woodmaster-lmgu.vercel.app/",
+    category: "Premium service",
+    format: "Ліди на консультацію",
+    focus: "Преміум-подача",
+    stack: "Custom landing",
+    tags: ["Візуальний бренд", "Галерея робіт", "Форма заявки"],
     task: "Показати майстерню як преміальний бренд, підсвітити індивідуальне виробництво та підвести клієнта до консультації.",
     solution:
       "Зібрав візуально дорогий лендинг з акцентом на атмосферу, послуги, галерею робіт та форму заявки для замовлень по Україні.",
@@ -30,6 +41,11 @@ const projects = [
     title: "AIR SOFA",
     niche: "Товарний лендинг для надувного крісла",
     url: "https://air-sofa.vercel.app/",
+    category: "E-commerce",
+    format: "Товарка під рекламу",
+    focus: "Прямий продаж",
+    stack: "Direct-response",
+    tags: ["Оффер", "FOMO", "Відгуки"],
     task: "Швидко продати товар через мобільний трафік, акцію, відгуки, FOMO та сильний call-to-action на замовлення.",
     solution:
       "Побудував e-commerce landing з оффером у першому екрані, пакетами, доказами довіри, відгуками та формою під конверсію.",
@@ -38,6 +54,11 @@ const projects = [
     title: "РемМайстер",
     niche: "Сервіс ремонту побутової техніки",
     url: "https://landing-page-remont.vercel.app/",
+    category: "Local service",
+    format: "Service + SEO",
+    focus: "Дзвінки та заявки",
+    stack: "Next.js landing",
+    tags: ["Локальний оффер", "SEO", "Соцдоказ"],
     task: "Отримувати заявки на терміновий ремонт у Києві та закрити ключові заперечення: швидкість, гарантія, чесна ціна.",
     solution:
       "Зробив SEO-орієнтований service landing з локальним оффером, списком послуг, соцдоказом, контактами та сценарієм виклику майстра.",
@@ -46,6 +67,11 @@ const projects = [
     title: "LX-10 TWS",
     niche: "Товарний лендинг для бездротових навушників",
     url: "https://lx10-tws.vercel.app/",
+    category: "Product launch",
+    format: "Товарка + Telegram",
+    focus: "Імпульсний продаж",
+    stack: "Next.js landing",
+    tags: ["Hero-подача", "Галерея", "Telegram order"],
     task: "Подати недорогий гаджет як емоційний техно-продукт і провести користувача до замовлення через Telegram.",
     solution:
       "Зібрав modern product page з яскравим hero, галереєю, блоком переваг, відгуками, таймером і формою замовлення.",
@@ -216,48 +242,90 @@ export default function HomePage() {
           <div className="container">
             <div className="section-heading">
               <p className="eyebrow">Проєкти</p>
-              <h2>Реальні кейси з різних ніш</h2>
+              <h2>Живе портфоліо з різних типів задач</h2>
               <p className="section-copy">
-                Нижче вже не абстрактні приклади, а живі лендинги: преміум-послуги,
-                service, товарка та direct-response сторінки під продаж і заявки.
+                Не просто красиві екрани, а реальні лендінги під різні сценарії:
+                преміум-послуги, локальний service, товарка та сторінки під прямий продаж.
               </p>
             </div>
 
-            <div className="project-grid">
-              {projects.map((project) => (
-                <article className="project-card" key={project.title}>
-                  <div className="project-card__top">
-                    <p className="project-card__label">Кейс</p>
-                    <h3>{project.title}</h3>
-                    <p className="project-card__niche">{project.niche}</p>
+            <div className="portfolio-shell">
+              <div className="portfolio-metrics">
+                {portfolioMetrics.map((item) => (
+                  <div className="portfolio-metric" key={item.label}>
+                    <strong>{item.value}</strong>
+                    <span>{item.label}</span>
                   </div>
+                ))}
+              </div>
 
-                  <div className="project-card__body">
-                    <div>
-                      <strong>Завдання</strong>
-                      <p>{project.task}</p>
-                    </div>
-                    <div>
-                      <strong>Рішення</strong>
-                      <p>{project.solution}</p>
-                    </div>
-                  </div>
+              <div className="project-grid">
+                {projects.map((project, index) => (
+                  <article className="project-card" key={project.title}>
+                    <div className="project-card__headerline">
+                      <div className="project-card__top">
+                        <p className="project-card__label">Кейс</p>
+                        <h3>{project.title}</h3>
+                        <p className="project-card__niche">{project.niche}</p>
+                      </div>
 
-                  <div className="project-card__actions">
-                    <a
-                      className="button button-secondary"
-                      href={project.url}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Переглянути кейс
-                    </a>
-                    <a className="text-link" href="#contact">
-                      Хочу такий самий
-                    </a>
-                  </div>
-                </article>
-              ))}
+                      <div className="project-card__aside">
+                        <span className="project-card__number">0{index + 1}</span>
+                        <span className="project-card__status">live</span>
+                      </div>
+                    </div>
+
+                    <div className="project-card__meta">
+                      <span className="project-chip">{project.category}</span>
+                      {project.tags.map((tag) => (
+                        <span className="project-chip" key={tag}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="project-card__facts">
+                      <div className="project-fact">
+                        <span>Формат</span>
+                        <strong>{project.format}</strong>
+                      </div>
+                      <div className="project-fact">
+                        <span>Фокус</span>
+                        <strong>{project.focus}</strong>
+                      </div>
+                      <div className="project-fact">
+                        <span>Подача</span>
+                        <strong>{project.stack}</strong>
+                      </div>
+                    </div>
+
+                    <div className="project-card__body">
+                      <div>
+                        <strong>Завдання</strong>
+                        <p>{project.task}</p>
+                      </div>
+                      <div>
+                        <strong>Рішення</strong>
+                        <p>{project.solution}</p>
+                      </div>
+                    </div>
+
+                    <div className="project-card__actions">
+                      <a
+                        className="button button-secondary"
+                        href={project.url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Переглянути кейс
+                      </a>
+                      <a className="text-link" href="#contact">
+                        Хочу такий самий
+                      </a>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </section>
