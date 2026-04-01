@@ -47,13 +47,26 @@ class handler(BaseHTTPRequestHandler):
         brief_url = _env("NTVX_BRIEF_URL", "https://t.me/ntvx31")
         owner_url = _env("NTVX_OWNER_TG_URL", "https://t.me/ntvx31")
 
-        if text_received in ("/start", "/menu"):
+        if text_received.startswith("/start"):
+            start_payload = text_received[6:].strip()
             text = (
                 f"Вітаю, {user_name}.\n\n"
                 "Я бот студії NTVX. Тут можна швидко відкрити прайс, "
                 "бриф або перейти в прямий контакт без зайвого пошуку."
             )
+            if start_payload == "landing_materials":
+                text += (
+                    "\n\n👇 Ось обіцяні матеріали. Тисніть на кнопки нижче, "
+                    "щоб відкрити прайс, бриф або написати напряму."
+                )
             self._send_message(token, chat_id, text, self._keyboard())
+        elif text_received == "/menu":
+            self._send_message(
+                token,
+                chat_id,
+                "Оберіть потрібний розділ нижче.",
+                self._keyboard(),
+            )
         elif text_received == MENU_PRICE:
             self._send_message(token, chat_id, f"Прайс-лист: {price_url}", self._keyboard())
         elif text_received == MENU_BRIEF:
