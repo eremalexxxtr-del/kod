@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://ntvx-studio.vercel.app"),
   title: "Розробка лендингів під ключ | Створення сайтів Україна",
   description:
-    "Розробка продаючих лендингів на Next.js від 3500-6000 грн для перших клієнтів. Швидкість <0.5s, Pagespeed 100/100. Київ, Львів, Дніпро, Харків, Одеса.",
+    "Розробка продаючих лендингів на Next.js від 3500-6000 грн для перших клиентов. Швидкість <0.5s, Pagespeed 100/100. Київ, Львів, Дніпро, Харків, Одеса.",
   
   // Google Search Console верификация
   verification: {
